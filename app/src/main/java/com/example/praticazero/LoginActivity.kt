@@ -31,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.praticazero.ui.theme.PraticaZeroTheme
 import androidx.compose.ui.platform.LocalContext
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +73,6 @@ fun LoginPage(modifier: Modifier = Modifier) {
                 email = it
             }
         )
-        Spacer(modifier = modifier.size(12.dp))
 
         OutlinedTextField(
             value = password,
@@ -82,22 +83,36 @@ fun LoginPage(modifier: Modifier = Modifier) {
             },
             visualTransformation = PasswordVisualTransformation()
         )
-        Spacer(modifier = modifier.size(12.dp))
+        Spacer(modifier = modifier.size(5.dp))
 
         Row(modifier = modifier.padding(12.dp).fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly) {
-            Button( onClick = {
+            /*Button( onClick = {
                 val horizontalArrangement = null
                 horizontalArrangement
                 Toast.makeText(activity, "Login OK!", Toast.LENGTH_LONG).show()
             } ) {
                 Text("Login")
-            }
+            }*/
             Button(
-                onClick = { email = ""; password = "" },
-                enabled = email.isNotEmpty() && password.isNotEmpty()
+                onClick = {
+                    Toast.makeText(
+                        activity,
+                        "Login OK!",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    activity.startActivity(
+                        Intent(
+                            activity,
+                            MainActivity::class.java
+                        ).setFlags(
+                            FLAG_ACTIVITY_SINGLE_TOP
+                        )
+                    )
+                }
             ) {
-                Text("Limpar")
+                Text("Login")
             }
         }
     }
