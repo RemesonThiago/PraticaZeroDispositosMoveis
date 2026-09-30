@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.praticazero.ui.theme.PraticaZeroTheme
+import androidx.compose.ui.platform.LocalContext
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +51,7 @@ class LoginActivity : ComponentActivity() {
 fun LoginPage(modifier: Modifier = Modifier) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
-    val activity = LocalActivity.current as Activity
+    val activity = LocalContext.current
     Column(
         modifier = modifier.padding(24.dp),
         verticalArrangement = Arrangement.Center,
@@ -102,13 +103,4 @@ fun LoginPage(modifier: Modifier = Modifier) {
     }
 }
 
-class LocalActivity {
-    companion object {
-        val current: Activity
-            get() {
-                TODO()
-            }
-    }
-
-}
 
