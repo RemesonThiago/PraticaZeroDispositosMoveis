@@ -33,6 +33,7 @@ import com.example.praticazero.ui.theme.PraticaZeroTheme
 import androidx.compose.ui.platform.LocalContext
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
+import com.example.praticazero.RegisterActivity
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,9 +111,23 @@ fun LoginPage(modifier: Modifier = Modifier) {
                             FLAG_ACTIVITY_SINGLE_TOP
                         )
                     )
-                }
+                }, enabled = email.isNotEmpty() && password.isNotEmpty()
             ) {
                 Text("Login")
+            }
+            Button(
+                onClick = {
+                    activity.startActivity(
+                        Intent(
+                            activity,
+                            RegisterActivity::class.java
+                        ).setFlags(
+                            FLAG_ACTIVITY_SINGLE_TOP
+                        )
+                    )
+                }
+            ) {
+                Text("Registrar")
             }
         }
     }
