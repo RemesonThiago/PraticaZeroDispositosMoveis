@@ -1,10 +1,10 @@
-package com.example.praticazero.ui.theme.nav
+package com.example.praticazero.ui.nav
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.example.praticazero.ui.theme.HomePage
-import com.example.praticazero.ui.theme.ListPage
-import com.example.praticazero.ui.theme.MapPage
+import com.example.praticazero.ui.HomePage
+import com.example.praticazero.ui.ListPage
+import com.example.praticazero.ui.MapPage
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable

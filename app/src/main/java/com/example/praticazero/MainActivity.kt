@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
@@ -21,11 +20,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.example.praticazero.ui.theme.HomePage
 import com.example.praticazero.ui.theme.PraticaZeroTheme
-import com.example.praticazero.ui.theme.nav.BottomNavBar
-import com.example.praticazero.ui.theme.nav.BottomNavItem
-import com.example.praticazero.ui.theme.nav.MainNavHost
+import com.example.praticazero.ui.nav.BottomNavBar
+import com.example.praticazero.ui.nav.BottomNavItem
+import com.example.praticazero.ui.nav.MainNavHost
 import androidx.compose.material3.ExperimentalMaterial3Api
 
 @OptIn(ExperimentalMaterial3Api::class)

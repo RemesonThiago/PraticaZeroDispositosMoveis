@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -89,7 +90,8 @@ fun RegisterPage(modifier: Modifier = Modifier) {
             modifier = modifier,
             onValueChange = {
                 senha = it
-            }
+            },
+            visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = modifier.size(12.dp))
         OutlinedTextField(
@@ -98,7 +100,8 @@ fun RegisterPage(modifier: Modifier = Modifier) {
             modifier = modifier,
             onValueChange = {
                 repetirSenha = it
-            }
+            },
+            visualTransformation = PasswordVisualTransformation()
         )
         /*Spacer(
             modifier = Modifier.size(12.dp)

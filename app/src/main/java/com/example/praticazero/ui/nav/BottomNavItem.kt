@@ -1,4 +1,4 @@
-package com.example.praticazero.ui.theme.nav
+package com.example.praticazero.ui.nav
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite

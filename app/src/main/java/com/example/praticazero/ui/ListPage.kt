@@ -1,4 +1,4 @@
-package com.example.praticazero.ui.theme
+package com.example.praticazero.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.example.praticazero.ui.theme.nav
+package com.example.praticazero.ui.nav
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
