@@ -25,6 +25,7 @@ import com.example.praticazero.ui.nav.BottomNavBar
 import com.example.praticazero.ui.nav.BottomNavItem
 import com.example.praticazero.ui.nav.MainNavHost
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.activity.viewModels
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
@@ -32,6 +33,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val viewModel: MainViewModel by viewModels()
             val navController = rememberNavController()
             PraticaZeroTheme {
                 Scaffold(
@@ -64,7 +66,7 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-                        MainNavHost(navController = navController)
+                        MainNavHost(navController = navController, viewModel = viewModel)
                     }
                 }
             }

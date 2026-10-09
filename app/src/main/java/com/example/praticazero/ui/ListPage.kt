@@ -32,11 +32,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.praticazero.ui.model.City
-
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.praticazero.MainViewModel
 
 @Composable
-fun ListPage(modifier: Modifier = Modifier) {
-    val cityList = remember { getCities().toMutableList() }
+fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel) {
+    val cityList = viewModel.cities
     val activity = LocalActivity.current as Activity
 
     Column(
@@ -58,7 +59,7 @@ fun ListPage(modifier: Modifier = Modifier) {
                 .padding(8.dp)
         ) {
             items(cityList, key = { it.name }) { city ->
-                CityItem(city = city, onClose = {
+                CityItem(city = city, onClose = { viewModel.remove(city)
                     Toast.makeText(
                         activity,
                         "Fechar: ${city.name}",
@@ -74,9 +75,6 @@ fun ListPage(modifier: Modifier = Modifier) {
             }
         }
     }
-}
-private fun getCities() = List(20) { i ->
-    City(name = "Cidade $i", weather = "Carregando clima...")
 }
 
 @Composable
