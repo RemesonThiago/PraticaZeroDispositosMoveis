@@ -56,7 +56,7 @@ fun LoginPage(modifier: Modifier = Modifier) {
     var password by rememberSaveable { mutableStateOf("") }
     val activity = LocalContext.current
     Column(
-        modifier = modifier.padding(24.dp),
+        modifier = modifier.padding(24.dp).fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = CenterHorizontally
     ) {
@@ -65,7 +65,6 @@ fun LoginPage(modifier: Modifier = Modifier) {
             text = "Bem-vindo/a!",
             fontSize = 24.sp
         )
-        Spacer(modifier = modifier.size(12.dp))
         OutlinedTextField(
             value = email,
             label = { Text(text = "Digite seu e-mail") },
@@ -74,7 +73,6 @@ fun LoginPage(modifier: Modifier = Modifier) {
                 email = it
             }
         )
-
         OutlinedTextField(
             value = password,
             label = { Text(text = "Digite sua senha") },
@@ -84,7 +82,6 @@ fun LoginPage(modifier: Modifier = Modifier) {
             },
             visualTransformation = PasswordVisualTransformation()
         )
-        Spacer(modifier = modifier.size(5.dp))
 
         Row(modifier = modifier.padding(12.dp).fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly) {
