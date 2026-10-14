@@ -42,17 +42,8 @@ fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel) {
 
     Column(
         modifier = modifier.fillMaxSize()
-            .background(Color.Gray)
             .wrapContentSize(Alignment.Center)
     ) {
-        Text(
-            text = "Favoritas",
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            modifier = modifier.align(CenterHorizontally),
-            textAlign = TextAlign.Center,
-            fontSize = 20.sp
-        )
         LazyColumn(
             modifier = modifier
                 .fillMaxSize()
