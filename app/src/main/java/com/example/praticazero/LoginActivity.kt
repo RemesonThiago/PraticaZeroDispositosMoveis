@@ -34,6 +34,8 @@ import androidx.compose.ui.platform.LocalContext
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import com.example.praticazero.RegisterActivity
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,30 +87,19 @@ fun LoginPage(modifier: Modifier = Modifier) {
 
         Row(modifier = modifier.padding(12.dp).fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly) {
-            /*Button( onClick = {
-                val horizontalArrangement = null
-                horizontalArrangement
-                Toast.makeText(activity, "Login OK!", Toast.LENGTH_LONG).show()
-            } ) {
-                Text("Login")
-            }*/
+
             Button(
                 onClick = {
-                    Toast.makeText(
-                        activity,
-                        "Login OK!",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                    activity.startActivity(
-                        Intent(
-                            activity,
-                            MainActivity::class.java
-                        ).setFlags(
-                            FLAG_ACTIVITY_SINGLE_TOP
-                        )
-                    )
-                }, enabled = email.isNotEmpty() && password.isNotEmpty()
+                    Firebase.auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity as Activity) { task ->
+            if (task.isSuccessful) {
+                activity.startActivity(Intent(activity, MainActivity::class.java).setFlags(FLAG_ACTIVITY_SINGLE_TOP))
+                Toast.makeText(activity, "Login OK!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(activity, "Login FALHOU!", Toast.LENGTH_LONG).show()
+            }
+          }
+        },
+        enabled = email.isNotEmpty() && password.isNotEmpty()
             ) {
                 Text("Login")
             }

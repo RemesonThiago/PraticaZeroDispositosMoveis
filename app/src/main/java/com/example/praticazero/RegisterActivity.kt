@@ -28,6 +28,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 //import com.example.praticazero.finish
 
@@ -116,23 +118,26 @@ fun RegisterPage(modifier: Modifier = Modifier) {
         Button(
             onClick = {
 
-                if (senha == repetirSenha) {
+                if (senha != repetirSenha) {
 
                     Toast.makeText(
                         context,
-                        "Registrado com Sucesso!",
+                        "As senhas não coincidem!!",
                         Toast.LENGTH_LONG
                     ).show()
-
-                            activity.finish()
 
                 } else {
-
-                    Toast.makeText(
-                        context,
-                        "As senhas não coincidem!",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Firebase.auth.createUserWithEmailAndPassword(email.trim(), senha)
+                        .addOnCompleteListener(activity)
+                        { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(context, "Registro OK!", Toast.LENGTH_LONG).show()
+                                activity.finish()
+                            } else {
+                                Toast.makeText(activity, "Registro FALHOU!", Toast.LENGTH_LONG)
+                                    .show()
+                            }
+                        }
                 }
             },
             enabled = nome.isNotEmpty() &&
