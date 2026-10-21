@@ -92,7 +92,6 @@ fun LoginPage(modifier: Modifier = Modifier) {
                 onClick = {
                     Firebase.auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity as Activity) { task ->
             if (task.isSuccessful) {
-                activity.startActivity(Intent(activity, MainActivity::class.java).setFlags(FLAG_ACTIVITY_SINGLE_TOP))
                 Toast.makeText(activity, "Login OK!", Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(activity, "Login FALHOU!", Toast.LENGTH_LONG).show()

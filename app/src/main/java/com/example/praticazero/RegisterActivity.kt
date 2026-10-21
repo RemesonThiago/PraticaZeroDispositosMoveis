@@ -132,7 +132,7 @@ fun RegisterPage(modifier: Modifier = Modifier) {
                         { task ->
                             if (task.isSuccessful) {
                                 Toast.makeText(context, "Registro OK!", Toast.LENGTH_LONG).show()
-                                activity.finish()
+                                activity
                             } else {
                                 Toast.makeText(activity, "Registro FALHOU!", Toast.LENGTH_LONG)
                                     .show()
