@@ -34,8 +34,10 @@ import androidx.compose.runtime.setValue
 import com.example.praticazero.ui.CityDialog
 import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.praticazero.db.fb.FBDatabase
 import com.example.praticazero.ui.nav.Route
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -47,8 +49,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val fbDB = remember { FBDatabase() }
+            val viewModel : MainViewModel = viewModel(factory = MainViewModelFactory(fbDB))
             var showDialog by remember { mutableStateOf(false) }
-            val viewModel: MainViewModel by viewModels()
+           // val viewModel: MainViewModel by viewModels()
             val navController = rememberNavController()
             val currentRoute = navController.currentBackStackEntryAsState()
             val showButton = currentRoute.value?.destination?.hasRoute(Route.List::class) == true

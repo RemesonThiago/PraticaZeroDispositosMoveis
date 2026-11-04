@@ -1,5 +1,6 @@
 package com.example.praticazero
 
+import android.R.attr.name
 import com.example.praticazero.ui.theme.PraticaZeroTheme
 import android.os.Bundle
 import android.widget.Toast
@@ -28,6 +29,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.praticazero.db.fb.FBDatabase
+import com.example.praticazero.db.fb.toFBUser
+import com.example.praticazero.ui.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
@@ -133,6 +137,7 @@ fun RegisterPage(modifier: Modifier = Modifier) {
                             if (task.isSuccessful) {
                                 Toast.makeText(context, "Registro OK!", Toast.LENGTH_LONG).show()
                                 activity
+                                FBDatabase().register(User(name.toString(), email).toFBUser())
                             } else {
                                 Toast.makeText(activity, "Registro FALHOU!", Toast.LENGTH_LONG)
                                     .show()
