@@ -64,7 +64,10 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     topBar = {
                         TopAppBar(
-                            title = { Text("Bem-vindo/a!") },
+                            title = {
+                                val userName = viewModel.user?.name ?: "Usuário"
+                                Text("Bem-vindo/a $userName")
+                            },
                             actions = {
                                 IconButton( onClick = { Firebase.auth.signOut() } ) {
                                     Icon(
