@@ -39,6 +39,8 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.praticazero.api.WeatherService
 import com.example.praticazero.db.fb.FBDatabase
+import com.example.praticazero.ui.CityDialogViewModel
+import com.example.praticazero.ui.CityDialogViewModelFactory
 import com.example.praticazero.ui.nav.Route
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -53,6 +55,9 @@ class MainActivity : ComponentActivity() {
             val fbDB = remember { FBDatabase() }
             val weatherService = remember { WeatherService() }
             val viewModel : MainViewModel = viewModel(factory = MainViewModelFactory(fbDB, weatherService))
+            val cityDialogViewModel: CityDialogViewModel = viewModel(
+                factory = CityDialogViewModelFactory(weatherService)
+            )
             var showDialog by remember { mutableStateOf(false) }
             val navController = rememberNavController()
             val currentRoute = navController.currentBackStackEntryAsState()
@@ -62,10 +67,8 @@ class MainActivity : ComponentActivity() {
             PraticaZeroTheme {
                 if (showDialog) CityDialog(
                     onDismiss = { showDialog = false },
-                    onConfirm = { name ->
-                        if (name.isNotBlank()) viewModel.add(name)
-                        showDialog = false
-                    })
+                    onConfirm = { name -> if (name.isNotBlank()) viewModel.add(name)
+                        showDialog = false }, viewModel = cityDialogViewModel)
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -94,7 +97,8 @@ class MainActivity : ComponentActivity() {
                     },
                     floatingActionButton = {
                         if (showButton) {
-                            FloatingActionButton(onClick = { showDialog = true }) {
+                            FloatingActionButton(onClick = {  cityDialogViewModel.query = ""
+                                showDialog = true }) {
                                 Icon(Icons.Default.Add, contentDescription = "Adicionar")
                             }
                         }
