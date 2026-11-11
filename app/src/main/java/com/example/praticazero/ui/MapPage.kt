@@ -43,10 +43,8 @@ fun MapPage(modifier: Modifier = Modifier,viewModel: MainViewModel) {
     val camPosState = rememberCameraPositionState ()
     Column(
 
-    GoogleMap (modifier = modifier.fillMaxSize(), onMapClick = {
-        val lat = "%.2f".format(it.latitude)
-        val lng = "%.2f".format(it.longitude)
-        viewModel.add("Cidade@$lat:$lng", location = it) }, cameraPositionState = camPosState,
+    GoogleMap (modifier = modifier.fillMaxSize(), onMapClick = { location ->
+        viewModel.addCity(location) }, cameraPositionState = camPosState,
         properties = MapProperties(isMyLocationEnabled = hasLocationPermission),
         uiSettings = MapUiSettings(myLocationButtonEnabled = true)
     ){
