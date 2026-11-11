@@ -1,6 +1,6 @@
 package com.example.praticazero
 
-import android.R.attr.name
+//import android.R.attr.name
 import com.example.praticazero.ui.theme.PraticaZeroTheme
 import android.os.Bundle
 import android.widget.Toast
@@ -60,9 +60,7 @@ fun RegisterPage(modifier: Modifier = Modifier) {
     var repetirSenha by rememberSaveable { mutableStateOf("") }
 
     Column(
-        modifier = modifier
-            .padding(12.dp)
-            .fillMaxSize(),
+        modifier = modifier.padding(12.dp).fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -137,7 +135,8 @@ fun RegisterPage(modifier: Modifier = Modifier) {
                             if (task.isSuccessful) {
                                 Toast.makeText(context, "Registro OK!", Toast.LENGTH_LONG).show()
                                 activity
-                                FBDatabase().register(User(name.toString(), email).toFBUser())
+                                //FBDatabase().register(User(name.toString(), email).toFBUser())
+                                FBDatabase().register(User(nome, email).toFBUser())
                             } else {
                                 Toast.makeText(activity, "Registro FALHOU!", Toast.LENGTH_LONG)
                                     .show()
