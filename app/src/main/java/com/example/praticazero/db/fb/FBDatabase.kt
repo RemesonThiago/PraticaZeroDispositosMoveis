@@ -30,13 +30,30 @@ import com.google.firebase.firestore.firestore
         fun add(city: FBCity){
             if (auth.currentUser == null)
                 throw RuntimeException("User not logged in!")
+            val uid = auth.currentUser!!.uid
 
-            if (city == null)
+            db.collection("users")
+                .document(uid)
+                .collection("cities")
+                .document(city.name!!)
+                .set(city)
+                .addOnSuccessListener {
+                    android.util.Log.d("FIREBASE", "Cidade adicionada: ${city.name}")
+                }
+                .addOnFailureListener { exception ->
+                    android.util.Log.e(
+                        "FIREBASE",
+                        "Erro ao adicionar cidade: ${exception.message}",
+                        exception
+                    )
+                }
+
+            /*if (city == null)
                 throw RuntimeException("City cannot be null!")
 
             val uid = auth.currentUser!!.uid
 
-            db.collection("users").document(uid).collection("cities").document(city.name!!).set(city)
+            db.collection("users").document(uid).collection("cities").document(city.name!!).set(city)*/
         }
         fun remove(city: FBCity){
             if (auth.currentUser == null)

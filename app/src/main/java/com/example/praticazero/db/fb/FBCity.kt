@@ -15,7 +15,7 @@ class FBCity {
 fun City.toFBCity() : FBCity {
     val fbCity = FBCity()
     fbCity.name = this.name
-    fbCity.lat = this.location?.latitude ?: 0.0
-    fbCity.lng = this.location?.longitude ?: 0.0
+    fbCity.lat = this.location?.latitude
+    fbCity.lng = this.location?.longitude
     return fbCity
 }

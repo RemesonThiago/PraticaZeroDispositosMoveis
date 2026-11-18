@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -29,6 +30,7 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.google.maps.android.compose.rememberMarkerState
 
 @Composable
 fun MapPage(modifier: Modifier = Modifier,viewModel: MainViewModel) {
@@ -48,10 +50,16 @@ fun MapPage(modifier: Modifier = Modifier,viewModel: MainViewModel) {
         properties = MapProperties(isMyLocationEnabled = hasLocationPermission),
         uiSettings = MapUiSettings(myLocationButtonEnabled = true)
     ){
-        viewModel.cities.forEach {
-            if (it.location != null) {
-                val markerState = remember { MarkerState(position = it.location) }
-                Marker(state = markerState, title = it.name, snippet = "${it.location}")
+        viewModel.cities.forEach { city ->
+            city.location?.let { location ->
+
+                key(city.name) {
+                    Marker(
+                        state = rememberMarkerState(position = location),
+                        title = city.name,
+                        snippet = "${location.latitude}, ${location.longitude}"
+                    )
+                }
             }
         }
 

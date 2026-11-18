@@ -19,9 +19,22 @@ class WeatherService {
     fun getName(lat: Double, lng: Double, onResponse : (String?) -> Unit ) {
         search("$lat,$lng") { list -> list?.forEach { onResponse(it.name) } }
     }
-    fun getLocation(name: String, onResponse: (lat:Double?, long:Double?) -> Unit) {
+    /*fun getLocation(name: String, onResponse: (lat:Double?, long:Double?) -> Unit) {
         search(name) { list ->
             list?.forEach { onResponse(it.lat, it.lon) }
+        }
+    }*/
+    fun getLocation(
+        name: String,
+        onResponse: (Double?, Double?) -> Unit
+    ) {
+        search(name) { list ->
+            val location = list?.firstOrNull {
+                it.country.equals("Brazil", ignoreCase = true) &&
+                        it.region.equals("Pernambuco", ignoreCase = true)
+            }
+
+            onResponse(location?.lat, location?.lon)
         }
     }
     fun search(query: String, onResponse : (List<APILocation>?) -> Unit) {

@@ -81,6 +81,9 @@ class MainViewModel(private val db: FBDatabase, private val service : WeatherSer
             }
         }
     }
+    fun addCity(city: City) {
+        db.add(city.toFBCity())
+    }
 }
 
 class MainViewModelFactory(private val db: FBDatabase, private val service : WeatherService) : ViewModelProvider.Factory {

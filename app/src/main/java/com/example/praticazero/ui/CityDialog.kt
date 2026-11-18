@@ -3,6 +3,7 @@ package com.example.praticazero.ui
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,9 +27,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.window.Dialog
+import com.example.praticazero.ui.model.City
 
 @Composable
-fun CityDialog(onDismiss: () -> Unit, onConfirm: (city: String) -> Unit, viewModel: CityDialogViewModel) {
+fun CityDialog(onDismiss: () -> Unit, onConfirm: (city: City) -> Unit, viewModel: CityDialogViewModel) {
     val cityName = remember { mutableStateOf("") }
     Dialog(onDismissRequest = { onDismiss() } ) {
         Surface( shape = RoundedCornerShape(16.dp) ) {
@@ -52,7 +54,7 @@ fun CityDialog(onDismiss: () -> Unit, onConfirm: (city: String) -> Unit, viewMod
                     items(viewModel.suggestions) { city ->
                         ListItem(
                             headlineContent = { Text(city.name) },
-                            modifier = Modifier.clickable { onConfirm(city.name) }
+                            modifier = Modifier.clickable { onConfirm(city) }
                         )
                     }
                 }
@@ -64,4 +66,8 @@ fun CityDialog(onDismiss: () -> Unit, onConfirm: (city: String) -> Unit, viewMod
             }
         }
     }
+}
+
+private fun ColumnScope.onConfirm(p1: String) {
+
 }
