@@ -18,13 +18,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.example.praticazero.ui.model.Weather
 import com.example.praticazero.api.toWeather
+import com.example.praticazero.api.APIWeatherForecast
+import com.example.praticazero.api.toForecast
+import com.example.praticazero.ui.model.Forecast
+import androidx.compose.runtime.mutableStateMapOf
 
 class MainViewModel(private val db: FBDatabase, private val service: WeatherService) : ViewModel(), FBDatabase.Listener {
 
     private val _user = mutableStateOf<User?>(null)
     private val _weather = mutableStateMapOf<String, Weather>()
+    private val _forecast = mutableStateMapOf<String, List<Forecast>?>()
+    private val _city = mutableStateOf<String?>(null)
+    private val _loadingForecast = mutableStateMapOf<String, Boolean>()
     val user: User?
         get() = _user.value
+    val city: String?
+        get() = _city.value
+    fun selectCity(name: String) {
+        _city.value = name
+    }
+        //set(tmp) { _city.value = tmp }
 
     private val _cities = mutableStateMapOf<String, City>()
 
@@ -100,19 +113,68 @@ class MainViewModel(private val db: FBDatabase, private val service: WeatherServ
         db.add(city.toFBCity())
     }
 
-    fun weather(name: String) = _weather.getOrPut(name) {
+    /*fun weather(name: String) = _weather.getOrPut(name) {
         loadWeather(name)
         Weather.LOADING
+    }*/
+    fun weather(name: String): Weather {
+        return _weather.getOrPut(name) {
+            loadWeather(name)
+            Weather.LOADING
+        }
     }
+  
+    /*fun forecast(name: String): List<Forecast>? {
+        return _forecast[name] ?: run {
+            loadForecast(name)
+            null
+        }
+    }*/
+    fun forecast(name: String): List<Forecast>? {
+        val result = _forecast[name]
 
-    private fun loadWeather(name: String) {
+        if (result == null && _loadingForecast[name] != true) {
+            _loadingForecast[name] = true
+            loadForecast(name)
+        }
+
+        return result
+    }
+    /*private fun loadForecast(name: String) {
+        service.getForecast(name) { apiForecast ->
+            apiForecast?.toForecast()?.let {
+                _forecast[name] = it
+            }
+        }
+    }*/
+    private fun loadForecast(name: String) {
+        service.getForecast(name) { apiForecast ->
+
+            val result = apiForecast?.toForecast()
+
+            if (result != null) {
+                _forecast[name] = result
+            }
+
+            _loadingForecast[name] = false
+        }
+    }
+    /*private fun loadWeather(name: String) {
         service.getWeather(name) { apiWeather ->
             apiWeather?.let {
                 _weather[name] = apiWeather.toWeather()
             }
         }
+    }*/
+    private fun loadWeather(name: String) {
+        service.getWeather(name) { apiWeather ->
+            if (apiWeather != null) {
+                _weather[name] = apiWeather.toWeather()
+            } else {
+                _weather[name] = Weather.LOADING
+            }
+        }
     }
-
 
     class MainViewModelFactory(
         private val db: FBDatabase,

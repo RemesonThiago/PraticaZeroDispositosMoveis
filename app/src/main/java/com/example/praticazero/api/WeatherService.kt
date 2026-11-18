@@ -19,11 +19,7 @@ class WeatherService {
     fun getName(lat: Double, lng: Double, onResponse : (String?) -> Unit ) {
         search("$lat,$lng") { list -> list?.forEach { onResponse(it.name) } }
     }
-    /*fun getLocation(name: String, onResponse: (lat:Double?, long:Double?) -> Unit) {
-        search(name) { list ->
-            list?.forEach { onResponse(it.lat, it.lon) }
-        }
-    }*/
+
     fun getLocation(
         name: String,
         onResponse: (Double?, Double?) -> Unit
@@ -71,6 +67,11 @@ class WeatherService {
         val call: Call<APICurrentWeather?> = weatherAPI.weather(name)
         enqueue(call) { onResponse.invoke(it) }
     }
+    fun getForecast(name: String, onResponse : (APIWeatherForecast?) -> Unit) {
+        val call: Call<APIWeatherForecast?> = weatherAPI.forecast(name)
+        enqueue(call) { onResponse.invoke(it) }
+    }
+
 
 
     fun cancelAll() {
