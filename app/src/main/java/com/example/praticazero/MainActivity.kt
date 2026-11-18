@@ -55,7 +55,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             val fbDB = remember { FBDatabase() }
             val weatherService = remember { WeatherService() }
-            val viewModel : MainViewModel = viewModel(factory = MainViewModelFactory(fbDB, weatherService))
+            val viewModel : MainViewModel = viewModel(factory = MainViewModel.MainViewModelFactory(
+                fbDB,
+                weatherService
+            )
+            )
             val cityDialogViewModel: CityDialogViewModel = viewModel(
                 factory = CityDialogViewModelFactory(weatherService)
             )
